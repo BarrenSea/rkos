@@ -10,7 +10,7 @@ description.workspace = true
 rust-version.workspace = true
 
 [dependencies]
-
+rkos-arch = { path = "../rkos-arch" }
 
 # [lints]
 # workspace = true

@@ -5,3 +5,10 @@
 
 ** High Performance Rust Operation System Core in Rust!
 
+** Start
+
+Fist install the qemu, then
+
+#+begin_src shell
+  make run
+#+end_src
