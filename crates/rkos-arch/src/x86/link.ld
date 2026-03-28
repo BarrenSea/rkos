@@ -1,3 +1,7 @@
+/* 
+    linker script for x86_64 kernel
+    see also: https://wiki.osdev.org/Linker_Scripts
+*/
 OUTPUT_ARCH(i386:x86-64)
 ENTRY(_start)
 
@@ -8,16 +12,20 @@ KERNEL_BASE_ADDRESS = 0x100000;
 SECTIONS {
     . = KERNEL_BASE_ADDRESS;
 
-    /* kernel code */
+    /*  
+        .text: kernel code
+        start at 0x100000
+    */
     .text : {
         stext = .;              
-        *(.text.entry)          
+        *(.text.entry)         
         *(.text .text.*)        
         . = ALIGN(4096);
         etext = .;              
     }
-
-    /* kernel rodata */
+    /* 
+        .rodata: kernel rodata 
+    */
     .rodata : {
         srodata = .;
         *(.rodata .rodata.*)
@@ -25,7 +33,9 @@ SECTIONS {
         erodata = .;
     }
 
-    /* kernel data */
+    /* 
+        .data: kernel data 
+    */
     .data : {
         sdata = .;
         *(.data .data.*)
@@ -33,7 +43,9 @@ SECTIONS {
         edata = .;
     }
 
-    /* kernel bss */
+    /* 
+        .bss: kernel bss 
+    */
     .bss : {
         sbss = .;
         *(.bss.stack)           /* kernel stack */
@@ -43,7 +55,9 @@ SECTIONS {
         ebss = .;
     }
 
-    /* kernel end */
+    /* 
+        kernel end
+    */
     . = ALIGN(4096);
     ekernel = .;
 }

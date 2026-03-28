@@ -4,35 +4,34 @@
 use core::arch::global_asm;
 use core::panic::PanicInfo;
 
-global_asm!(
-    r#"
-    .section .text.entry
-    .align 4
-    
-    .global multiboot_header
-    multiboot_header:
-    
-    .long 0x1badb002
-    .long 0x00010000
-    .long -(0x1badb002 + 0x00010000)
+#[cfg(target_arch = "x86_64")]
+global_asm!(include_str!("../../rkos-arch/src/x86/head_64.S"));
 
-    .long multiboot_header
-    .long stext
-    .long edata
-    .long ebss
-    .long _start
+#[unsafe(no_mangle)]
+pub extern "C" fn _main() {
+    // VGA_BASE: 0xb8000
+    let vga_buffer = 0xb8000 as *mut u8;
 
-    .global _start
-    _start:
-    .code32
-        mov eax, 0x4f4f4f4f
-        mov dword ptr [0xb8000], eax
-        
-    .loop:
-        hlt
-        jmp .loop
-    "#
-);
+    let text = b"[OK] Barrensea rkos has conquered 64-bit Long Mode!!!";
+    let color_byte = 0x0a;
+
+    for (i, &byte) in text.iter().enumerate() {
+        unsafe {
+            *vga_buffer.add(i * 2) = byte;
+            *vga_buffer.add(i * 2 + 1) = color_byte;
+        }
+    }
+
+    unsafe extern "C" {
+        fn stext();
+        fn edata();
+        fn ebss();
+    }
+    let _text_size = edata as *const () as usize - stext as *const () as usize;
+    let _bss_size = ebss as *const () as usize - edata as *const () as usize;
+
+    //loop {}
+}
 
 #[panic_handler]
 fn panic(_info: &PanicInfo) -> ! {

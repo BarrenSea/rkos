@@ -11,6 +11,8 @@ on:
       - "**.ps1"
       - "**.yml"
       - "**.toml"
+      - "**.S"
+      - "**.ld"
       - "!**.md"
   pull_request:
     types: [opened, synchronize]
@@ -21,6 +23,8 @@ on:
       - "**.ps1"
       - "**.yml"
       - "**.toml"
+      - "**.S"
+      - "**.ld"
       - "!**.md"
 
 env:
