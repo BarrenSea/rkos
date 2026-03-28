@@ -14,3 +14,9 @@ rust-version.workspace = true
 
 # [lints]
 # workspace = true
+
+
+[[bin]]
+name = "rkos"
+path = "src/main.rs"
+test = false
