@@ -1,0 +1,32 @@
+[workspace]
+resolver = "2"
+members = ["crates/*"]
+default-members = ["crates/*"]
+
+[workspace.package]
+
+authors = [
+	"Barrensea",
+]
+
+categories = [
+    "no-std",
+    "embedded",
+    "os-development",
+]
+
+keywords = [
+    "kernel",
+    "os",
+    "bare-metal",
+    "no-std",
+    "embedded",
+    "os-development",
+]
+
+license = "GPL-2.0"
+
+description = "High Performance Rust Operation System Core in Rust!"
+
+
+rust-version = "1.94.0"
