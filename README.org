@@ -1,2 +1,14 @@
-* Rk
+* rkos
+[[Github Repo Starts][https://img.shields.io/github/stars/barrensea/rkos]]
+[[https://crates.io/crates/rkos][https://img.shields.io/crates/d/rkos.svg]]
+[[repo-size][https://img.shields.io/github/repo-size/barrensea/algori.svg]]
 
+** High Performance Rust Operation System Core in Rust!
+
+** Start
+
+Fist install the qemu, then
+
+#+begin_src shell
+  make run
+#+end_src
