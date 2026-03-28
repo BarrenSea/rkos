@@ -14,3 +14,5 @@ rust-version.workspace = true
 [lib]
 test = false
 doctest = false
+
+[features]
