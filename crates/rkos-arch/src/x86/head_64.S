@@ -1,6 +1,6 @@
 /*
     Bootstrapping x86_64 kernel
-    see also: https://wiki.osdev.org/Entering_Long_Mode
+    see also: https://wiki.osdev.org/Setting_Up_Long_Mode
 */
     /* prepare space for 4-level paging to entering long mode 
         .bss: | PML4 | PML3 | PML2 | Kernel_Stack(.bss.stack)|
@@ -54,7 +54,7 @@ gdt64_pointer:
     /* length of gdt64 minus 1 */
     .word 15    
     /* pointer to gdt64 */              
-    .quad gdt64 
+    .long gdt64 
 
     /* 
         multiboot header
