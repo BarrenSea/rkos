@@ -1,27 +1,6 @@
 OUTPUT_ARCH(i386:x86-64)
 ENTRY(_start)
 
-/* kernel memory map
- *
- *   Physical Address       Memory Content
- *   ----------------       -----------------------
- *   0x100000        -----> +-----------------------+ <--- KERNEL_BASE_ADDRESS
- *                          |      .text.entry      | (boot scripts)
- *                          |-----------------------|
- *                          |         .text         | (code)
- *                          |-----------------------| <--- etext (4K aligned)
- *                          |        .rodata        | (read-only data)
- *                          |-----------------------| <--- erodata (4K aligned)
- *                          |         .data         | (initialized data)
- *                          |-----------------------| <--- edata (4K aligned)
- *                          |      .bss.stack       | (kernel stack space)
- *                          |-----------------------|
- *                          |         .bss          | (uninitialized data)
- *                          |-----------------------| <--- ebss (4K aligned)
- *                          +-----------------------+ <--- ekernel (Heap Start)
- *
- */
-
 
 /* x86_64 kernel base address */
 KERNEL_BASE_ADDRESS = 0x100000;
