@@ -1,0 +1,16 @@
+[package]
+name = "rkos"
+version = "0.1.0"
+edition = "2024"
+authors.workspace = true
+categories.workspace = true
+keywords.workspace = true
+license.workspace = true
+description.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+
+
+# [lints]
+# workspace = true

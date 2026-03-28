@@ -1,0 +1,16 @@
+[toolchain]
+channel = "1.94.0"
+profile = "minimal"
+
+components = [
+    # For rust-analyzer
+    "rust-src",
+    "rust-analyzer",
+    # For CI and editors
+    "rustfmt",
+    "clippy",
+]
+targets = [
+    "x86_64-unknown-none",
+    #"riscv64gc-unknown-none-elf",
+]
