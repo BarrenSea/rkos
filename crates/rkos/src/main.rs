@@ -12,7 +12,7 @@ pub mod console;
 
 #[unsafe(no_mangle)]
 pub extern "C" fn _main() {
-    rkos_arch::x86::serial::SerialPort::init();
+    let _ = rkos_arch::x86::serial::SerialPort::init();
 
     println!("[OK] Barrensea rkos has conquered 64-bit Long Mode!!!");
     println!("Hello from rkos serial output!");

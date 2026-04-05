@@ -1,8 +1,17 @@
 // see also: https://wiki.osdev.org/Serial_Ports
+#![allow(dead_code)]
+
 use core::arch::asm;
 use core::fmt;
 
 const COM1: u16 = 0x3F8;
+const COM2: u16 = 0x2F8;
+const COM3: u16 = 0x3E8;
+const COM4: u16 = 0x2E8;
+const COM5: u16 = 0x5F8;
+const COM6: u16 = 0x4F8;
+const COM7: u16 = 0x5E8;
+const COM8: u16 = 0x4E8;
 
 /// Write a byte to the serial port
 unsafe fn outb(port: u16, val: u8) {
@@ -24,7 +33,7 @@ pub struct SerialPort;
 
 impl SerialPort {
     /// Initialize the standard COM1 serial port
-    pub fn init() {
+    pub fn init() -> Result<(), &'static str> {
         unsafe {
             outb(COM1 + 1, 0x00); // Disable all interrupts
             outb(COM1 + 3, 0x80); // Enable DLAB (set baud rate divisor)
@@ -33,6 +42,18 @@ impl SerialPort {
             outb(COM1 + 3, 0x03); // 8 bits, no parity, one stop bit
             outb(COM1 + 2, 0xC7); // Enable FIFO, clear them, with 14-byte threshold
             outb(COM1 + 4, 0x0B); // IRQs enabled, RTS/DSR set
+            outb(COM1 + 4, 0x1E); // Set in loopback mode, test the serial chip
+            outb(COM1, 0xAE); // Test serial chip (send byte 0xAE and check if serial returns same byte)
+
+            // Check if serial is faulty (i.e: not same byte as sent)
+            if inb(COM1) != 0xAE {
+                return Err("Serial port faulty");
+            }
+
+            // If serial is not faulty set it in normal operation mode
+            // (not-loopback with IRQs enabled and OUT#1 and OUT#2 bits enabled)
+            outb(COM1 + 4, 0x0F);
+            Ok(())
         }
     }
 
